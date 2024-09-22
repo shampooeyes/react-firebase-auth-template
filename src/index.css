@@ -75,7 +75,7 @@ a {
   padding: 1em;
   background: none;
   cursor: pointer;
-  color: white;
+  /* color: white; */
   background: #eb9500;
   border: none;
   border-radius: 0.125em;

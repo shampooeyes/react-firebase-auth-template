@@ -24,6 +24,7 @@ export const UserDataProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const authStateListener = onAuthStateChanged(FirebaseAuth, async (user) => {
+      // TODO check if is in admins collection
       setUser(user);
       setIsLoading(false);
     });

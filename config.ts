@@ -1,8 +1,9 @@
 export const FirebaseConfig = {
-  apiKey: "AIzaSyCI2MRPQ_jdpnx5LXeNBfLjFMPNzyAZUJQ",
-  authDomain: "templates-42069.firebaseapp.com",
-  projectId: "templates-42069",
-  storageBucket: "templates-42069.appspot.com",
-  messagingSenderId: "663188134",
-  appId: "1:663188134:web:c951fc7033c48542deba67",
+  apiKey: "AIzaSyCUdDNIdUiAq_3VCMwytEV0LHCA8DuZ2ZA",
+  authDomain: "steamit-c6c88.firebaseapp.com",
+  projectId: "steamit-c6c88",
+  storageBucket: "steamit-c6c88.appspot.com",
+  messagingSenderId: "422372528054",
+  appId: "1:422372528054:web:ef22f1914227a416e27b17",
+  measurementId: "G-P8BYQ065ND"
 };

@@ -3,6 +3,7 @@ import { useUser } from "../context/AuthContext";
 
 const ProtectedPage = () => {
   const { user } = useUser();
+  console.log(user?.email);
   return (
     <main>
       <Link className="home-link" to="/">

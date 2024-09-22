@@ -4,6 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import { FirebaseAuth } from "../../firebase";
 import { useUser } from "../../context/AuthContext";
 import { FirebaseError } from "firebase/app";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 const SignInPage = () => {
   // ==============================
@@ -29,6 +30,23 @@ const SignInPage = () => {
     setStatus("");
     setStatus("Logging in...");
     try {
+      let isAdmin = false;
+      const functions = getFunctions();
+      const addMessage = httpsCallable(functions, 'authorizeAdmin');
+      await addMessage({ email: formValues.email })
+        .then((result) => {
+          // Read result of the Cloud Function.
+          /** @type {any} */
+          // const data = result.data ;
+          // const sanitizedMessage = data.text;
+          if ((result.data as any).status == "success") {
+            isAdmin = true;
+          } 
+        });
+        if (!isAdmin) {
+          setStatus("Invalid Login");
+          return;
+        }
       await signInWithEmailAndPassword(
         FirebaseAuth,
         formValues.email,
