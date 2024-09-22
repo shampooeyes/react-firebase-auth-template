@@ -3,7 +3,6 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { FirebaseConfig } from "../../config";
 import { getAnalytics } from "firebase/analytics";
-import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 // Initialize Firebase
 export const MainFirebaseApp = initializeApp(FirebaseConfig);

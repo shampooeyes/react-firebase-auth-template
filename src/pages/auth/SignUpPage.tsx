@@ -4,6 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import { FirebaseAuth } from "../../firebase";
 import { FirebaseError } from "firebase/app";
 import { useUser } from "../../context/AuthContext";
+import styles from "../../index.module.css";
 
 const SignUpPage = () => {
   // ==============================
@@ -42,12 +43,12 @@ const SignUpPage = () => {
   };
 
   return (
-    <main>
-      <Link className="home-link" to="/">
+    <div className={styles.main}>
+      <Link className={styles.homeLink} to="/">
         ◄ Home
       </Link>
-      <form className="main-container" onSubmit={handleSubmit}>
-        <h1 className="header-text">Sign Up</h1>
+      <form className={styles.mainContainer} onSubmit={handleSubmit}>
+        <h1 className={styles.headerText}>Sign Up</h1>
         <p
           style={{
             textAlign: "center",
@@ -55,7 +56,6 @@ const SignUpPage = () => {
             color: "#777",
           }}
         >
-          Demo app, please don't use your real email or password
         </p>
         <input
           name="email"
@@ -70,12 +70,12 @@ const SignUpPage = () => {
           placeholder="Password"
         />
         <button type="submit">Create Account</button>
-        <Link className="auth-link" to="/auth/sign-in">
+        <Link className={styles.authLink} to="/auth/sign-in">
           Already have an account? Sign In
         </Link>
         {status && <p>{status}</p>}
       </form>
-    </main>
+    </div>
   );
 };
 

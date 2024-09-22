@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../shared/Modal";
 import styles from "./AppointmentDetails.module.css";
 import Select from "react-select";
 
-const AppointmentDetails = (props) => {
+const AppointmentDetails = (props: any) => {
   const order = props.data;
   console.log(props);
   const [showStaffMenu, setShowStaffMenu] = useState(false);
@@ -12,7 +12,7 @@ const AppointmentDetails = (props) => {
 
   const staffOptions = ["STAFF1", "STAFF2"];
 
-  const handlePickStaff = (option) => {
+  const handlePickStaff = (option: any) => {
     if (option["label"] === "All") {
       setPickedStaff("Staff");
     } else {
@@ -26,6 +26,7 @@ const AppointmentDetails = (props) => {
       <React.Fragment>
         <div className={styles.topBorderUser}></div>
         <div className={styles.userTitle}>Appointment Info</div>
+        <div className={styles.content}>
         <div className={styles.personal}>
           <div className={styles.fieldGroup}>
             <div className={styles.nameField}>
@@ -88,7 +89,7 @@ const AppointmentDetails = (props) => {
           </div>
           <div className={styles.headers}>Wash Details</div>
           <div className={styles.fieldGroup}>
-            {order.vehicleDetails.map((vehicle, index) => (
+            {order.vehicleDetails.map((vehicle: any, index: any) => (
               <div key={index}>
                 <span className={styles.smallText}>Vehicle {index + 1}</span>
                 <div>
@@ -152,23 +153,24 @@ const AppointmentDetails = (props) => {
             )}
           </div>
         </div>
+        </div>
       </React.Fragment>
     );
   };
 
   return ReactDOM.createPortal(
     <Modal exit={() => props.exit(pickedStaff)}>{getBody()}</Modal>,
-    document.getElementById("backdrop-root")
+    document.getElementById("backdrop-root")!
   );
 };
 
 export default AppointmentDetails;
 
-const capitalize = (string) => {
+const capitalize = (string: string) => {
   return string[0].toUpperCase() + string.substring(1);
 };
 
-const formatDateTime = (date) => {
+const formatDateTime = (date: number | Date | undefined) => {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     minute: "numeric",
     hour: "2-digit",
@@ -179,7 +181,7 @@ const formatDateTime = (date) => {
   return formattedDate;
 };
 
-const formartStartEndTime = (startDate, endDate) => {
+const formartStartEndTime = (startDate: number | Date | undefined, endDate: number | Date | undefined) => {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     minute: "numeric",
     hour: "2-digit",
@@ -200,13 +202,13 @@ const customStyles = {
   control: () => ({
     display: "none",
   }),
-  menu: (provided) => ({
+  menu: (provided: any) => ({
     ...provided,
     position: "absolute",
     borderRadius: "20px",
     minWidth: "120px",
   }),
-  option: (provided, state) => ({
+  option: (provided: any, state: any) => ({
     ...provided,
     borderRadius: "14px",
     fontSize: "14px",
@@ -215,7 +217,7 @@ const customStyles = {
     textAlign: "left",
     backgroundColor: "transparent",
   }),
-  menuList: (base) => ({
+  menuList: (base: any) => ({
     ...base,
     maxHeight: "180px",
     "::-webkit-scrollbar": {

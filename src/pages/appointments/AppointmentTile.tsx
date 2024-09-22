@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
 import classes from "./Appointments.module.css"
-import { Checkbox } from "@mui/material";
 
-const AppointmentTile = (props) => {
+const AppointmentTile = (props: any) => {
     const order = props.order
-    const [checked, setChecked] = useState(false);
     
 
 
-    return <div className={classes.tableRow} onClick={() => props.onClick(order)}>
+    return <div className={classes.tableRow} style={props.style} onClick={() => props.onClick(order)}>
         <div style={{ flex: 3 }}>{order.userId}</div>
         <div style={{ flex: 2 }}>{formatDateTime(order.startTime)}</div>
         <div style={{ flex: 2 }}>{formatTime(order.endTime)}</div>
@@ -20,7 +17,7 @@ const AppointmentTile = (props) => {
 }
 export default AppointmentTile;
 
-const formatTime = (date) => {
+const formatTime = (date: any) => {
     const formattedDate = new Intl.DateTimeFormat('en-US', {
         minute: "numeric",
         hour: "2-digit",
@@ -28,7 +25,7 @@ const formatTime = (date) => {
     return formattedDate;
 }
 
-const formatDateTime = (date) => {
+const formatDateTime = (date: any) => {
     const formattedDate = new Intl.DateTimeFormat('en-US', {
         minute: "numeric",
         hour: "2-digit",
@@ -39,6 +36,6 @@ const formatDateTime = (date) => {
     return formattedDate;
   }
 
-const capitalize = (string) => {
+const capitalize = (string: any) => {
     return string[0].toUpperCase() + string.substring(1);
 }

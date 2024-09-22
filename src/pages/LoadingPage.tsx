@@ -1,10 +1,12 @@
+import styles from "../index.module.css";
+
 const LoadingPage = () => {
   return (
-    <main>
-      <section className="main-container">
-        <h1 className="header-text">Loading...</h1>
+    <div className={styles.main}>
+      <section className={styles.mainContainer}>
+        <h1 className={styles.headerText} style={{color: "black"}}>Loading...</h1>
       </section>
-    </main>
+    </div>
   );
 };
 

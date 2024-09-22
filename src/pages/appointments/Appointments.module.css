@@ -61,7 +61,12 @@
 .calendar {
     border: none;
     border-radius: 15px;
+    color: white;
     border-bottom: 1px solid darkgray;
+}
+
+.calendar button {
+    color: black;
 }
 
 .filledButton {
@@ -134,7 +139,7 @@
     flex-direction: row;
     align-items: center;
     text-align: center;
-    background-color: #96B7C7;
+    background-color: #ffa000;
     color: white;
     font-size: 12px;
     font-weight: 700;

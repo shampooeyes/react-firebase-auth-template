@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../shared/Modal";
 import styles from "./AddStaffModal.module.css";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { FirebaseAuth, FirebaseFirestore } from "../../firebase";
 
-const AddStaffModal = (props) => {
+const AddStaffModal = (props: { exit: (arg0: { email: string; vanId: string; id: string; }) => void; }) => {
   const [staffId, setStaffId] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const onStaffIdChange = (event) => {
+  const onStaffIdChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setStaffId(event.target.value);
   };
 
-  const onPasswordChange = (event) => {
+  const onPasswordChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setPassword(event.target.value);
   };
-  const onEmailChange = (event) => {
+  const onEmailChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
     setEmail(event.target.value);
   };
 
@@ -106,7 +106,7 @@ const AddStaffModal = (props) => {
 
   return ReactDOM.createPortal(
     <Modal exit={props.exit}>{getBody()}</Modal>,
-    document.getElementById("backdrop-root")
+    document.getElementById("backdrop-root")!
   );
 };
 

@@ -1,17 +1,18 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { FirebaseAuth } from "../../firebase";
 import { useUser } from "../../context/AuthContext";
 import { FirebaseError } from "firebase/app";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import styles from "../../index.module.css";
 
 const SignInPage = () => {
   // ==============================
   // If user is already logged in, redirect to home
   // This logic is being repeated in SignIn and SignUp..
   const { user } = useUser();
-  if (user) return <Navigate to="/" />;
+  if (user) return <Navigate to="/appointments" />;
   // maybe we can create a wrapper component for these pages
   // just like the ./router/AuthProtectedRoute.tsx? up to you.
   // ==============================
@@ -59,12 +60,10 @@ const SignInPage = () => {
     setStatus("");
   };
   return (
-    <main>
-      <Link className="home-link" to="/">
-        ◄ Home
-      </Link>
-      <form className="main-container" onSubmit={handleSubmit}>
-        <h1 className="header-text">Sign In</h1>
+    <div className={styles.main}>
+      <form className={styles.mainContainer} onSubmit={handleSubmit}>
+        <img src="/src/assets/logo.png" alt="Sign In" height="50px" />
+        <h1 className={styles.headerText}>Sign In</h1>
         <input
           name="email"
           onChange={handleInputChange}
@@ -78,12 +77,9 @@ const SignInPage = () => {
           placeholder="Password"
         />
         <button type="submit">Login</button>
-        <Link className="auth-link" to="/auth/sign-up">
-          Don't have an account? Sign Up
-        </Link>
         {status && <p>{status}</p>}
       </form>
-    </main>
+    </div>
   );
 };
 

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +10,8 @@ body {
   background-color: hsl(240, 4%, 9%);
   color: white;
 }
-main {
+.main {
+  font-family: 'Lexend';
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +20,7 @@ main {
 a {
   text-decoration: none;
 }
-.header-text {
+.headerText {
   display: flex;
   gap: 0.5em;
   align-items: center;
@@ -25,49 +28,39 @@ a {
   font-weight: bold;
   background: none;
   text-align: center;
+  color: black;
 }
-.main-container {
+.mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: hsl(240, 4%, 12%);
+  background-color: #ffcf01;
   padding: 2em 2em;
   width: 100%;
   max-width: 500px;
-  border-radius: 2px;
+  border-radius: 15px;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.2);
   border-top: 5px;
   border-width: 10px 0px 0px 0px;
   border-style: solid;
   border-color: #ffca28; /* Changed to Firebase yellow */
 }
-#github-repo-link {
-  display: flex;
-  gap: 0.5em;
-  margin-top: 0;
-  align-items: center;
-  padding: 0.5em 1em;
-  font-weight: bold;
-  background: none;
-  cursor: pointer;
-  color: hsl(45, 100%, 53%); /* Changed to Firebase yellow */
-}
-
-#github-repo-link:hover {
-  background-color: rgba(255, 202, 40, 0.2); /* Firebase yellow with opacity */
-}
 
 input {
   padding: 1rem;
-  border-radius: 0.125rem;
+  border-radius: 10px;
   outline: none;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-  background-color: hsl(240, 3%, 9%);
+  background-color: hsla(240, 4%, 9%, 0.473);
   border: 0;
   font-size: 1rem;
   color: white;
   margin-top: 7px;
   width: 300px;
+}
+
+input::placeholder {
+  color: rgba(245, 245, 245, 0.753);
 }
 button,
 a {
@@ -75,10 +68,10 @@ a {
   padding: 1em;
   background: none;
   cursor: pointer;
-  /* color: white; */
-  background: #eb9500;
+  color: #ffa000;
+  background: white;
   border: none;
-  border-radius: 0.125em;
+  border-radius: 10px;
   transition: background-color 0.3s;
   width: 300px;
   text-align: center;
@@ -92,19 +85,19 @@ a {
 
 button:hover,
 a:hover {
-  background: #ff8f00; /* Darker Firebase orange for hover */
+  background: whitesmoke; /* Darker Firebase orange for hover */
 }
-.home-link {
+.homeLink {
   margin-bottom: 1em;
 }
-.auth-link {
+.authLink {
   background: transparent;
 }
-.auth-link:hover {
+.authLink:hover {
   background: transparent;
   text-decoration: underline;
 }
-#divider {
+.divider {
   width: 70%;
   height: 2px;
   background-color: #ffa000; /* Changed to Firebase orange */

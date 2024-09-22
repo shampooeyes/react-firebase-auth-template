@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import Drawer from '@mui/material/Drawer';
-import Card from '../shared/Card';
+import {useState, useEffect} from 'react';
 import classes from './Appointments.module.css';
 import PersistentDrawer from '../shared/Drawer';
-import { Firestore, collection, doc, updateDoc, getDocs} from "firebase/firestore";
+import { collection, doc, updateDoc, getDocs} from "firebase/firestore";
 import { FirebaseFirestore } from "../../firebase/index";
-import AppointmentTile from './AppointmentTile';
+import AppointmentTile from './AppointmentTile.tsx';
 import Calendar from "react-calendar"
 import 'react-calendar/dist/Calendar.css';
 import Select from 'react-select'
-import AppointmentDetails from './AppointmentDetails';
+import AppointmentDetails from './AppointmentDetails.tsx';
 
 
 
@@ -24,20 +22,20 @@ const AppointmentsPage = () => {
   const [pickedStaff, setPickedStaff] = useState("Staff");
   const [pickedCity, setPickedCity] = useState("City");
 
-  const [appointments, setAppointments] = useState([]);
-  const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [filteredAppointments, setFilteredAppointments] = useState<any[]>([]);
   const cities = ["All", "Nicosia", "Larnaca", "Limassol"];
   const staff = ["All", "STAFF1", "STAFF2"]
 
   const [showAppointment, setShowAppointment] = useState(false);
-  const [selectedAppointment, setSelectedAppointment] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState<any>(false);
 
   useEffect(() => {
     const fetchAppointments = () => {
       getDocs(collection(FirebaseFirestore, "orders")).then((snapshot) => {
         
-        setAppointments(_ => {
-          return snapshot.docs.sort((a,b) => 
+        setAppointments(
+          snapshot.docs.sort((a,b) => 
             b.data().startTime.seconds - a.data().startTime.seconds
         ).map((doc) => {
             let data = doc.data();
@@ -46,8 +44,7 @@ const AppointmentsPage = () => {
             data["id"] = doc.id;
             return data;
             
-          });
-        });
+          }));
         setFilteredAppointments(_ => {
           return snapshot.docs.sort((a,b) => 
             b.data().startTime.seconds - a.data().startTime.seconds
@@ -90,18 +87,18 @@ useEffect(() => {
 
 
 const getTiles = () => {
-  const showModal = (app) => {
+  const showModal = (app: any) => {
     setSelectedAppointment(app);
     setShowAppointment(true);
   }
   return <div style={{height: "100%"}}>
-      {filteredAppointments.map((order =>
-          <AppointmentTile order={order}  onClick={(app) => showModal(app)} />
+      {filteredAppointments.map(((order, index) =>
+          <AppointmentTile order={order} style={index % 2 == 0 ? {} : {backgroundColor:"rgb(255 242 221)"}} onClick={(app: any) => showModal(app)} />
       ))}
   </div>
 }
 
-  const handleFilterChange = (index) => {
+  const handleFilterChange = (index: any) => {
     setFilterIndex(index);
     if (index == 0) {
         setFilteredAppointments(appointments);
@@ -126,12 +123,12 @@ const getTiles = () => {
   }
 }
 
-const handlePickDate = (value) => {
+const handlePickDate = (value: any) => {
   setShowCalendar(false);
   setPickedDate(value)
 }
 
-const handlePickCity = (option) => {
+const handlePickCity = (option: any) => {
   if (option['label'] === "All") {
     setPickedCity("City");
   } else {
@@ -139,7 +136,7 @@ const handlePickCity = (option) => {
   }
 }
 
-const handlePickStaff = (option) => {
+const handlePickStaff = (option: any) => {
   if (option['label'] === "All") {
     setPickedStaff("Staff");
   } else {
@@ -147,7 +144,7 @@ const handlePickStaff = (option) => {
   }
 }
 
-const exitAppointmentModal = async (staff) => {
+const exitAppointmentModal = async (staff: any) => {
   setShowAppointment(false)
   if (!staff) {
     return;
@@ -238,7 +235,7 @@ const exitAppointmentModal = async (staff) => {
 
 export default AppointmentsPage;
 
-const formatDate = (date) => {
+const formatDate = (date: any) => {
   const formattedDate = new Intl.DateTimeFormat('en-US', {
       month: 'short',
       day: '2-digit',
@@ -251,13 +248,13 @@ const customStyles = {
   control: () => ({
       display: "none"
   }),
-  menu: (provided) => ({
+  menu: (provided: any) => ({
       ...provided,
       position: "absolute",
       borderRadius: '20px',
       minWidth: "120px",
   }),
-  option: (provided, state) => ({
+  option: (provided: any, state: any) => ({
       ...provided,
       borderRadius: '14px',
       fontSize: '14px',
@@ -266,7 +263,7 @@ const customStyles = {
       textAlign: "left",
       backgroundColor: "transparent"
   }),
-  menuList: (base) => ({
+  menuList: (base: any) => ({
       ...base,
       maxHeight: '180px',
       "::-webkit-scrollbar": {

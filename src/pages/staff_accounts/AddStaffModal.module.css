@@ -19,7 +19,7 @@
   
 }
 .topBorder {
-    border-top: solid 73px #EA580C;
+    border-top: solid 73px #ffa000;
     position: inherit;
     border-radius: 26px 26px 0 0;
     left: 0%;
@@ -81,7 +81,7 @@
     bottom: -30px;
     right: 50px;
     border-radius: 11px;
-    background: #EA580C;
+    background: #ffa000;
     width: 150px;
     height: 36px;
     font-weight: bold;

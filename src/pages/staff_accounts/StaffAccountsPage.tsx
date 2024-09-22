@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import classes from "../appointments/Appointments.module.css";
 import { FirebaseFirestore } from "../../firebase";
 import AddStaffModal from "./AddStaffModal";
-import StaffDetails from "./StaffDetails";
 import PersistentDrawer from "../shared/Drawer";
+import StaffDetails from "./StaffDetails";
 import { getDocs, collection } from "firebase/firestore";
 import StaffTile from "./StaffTile";
 
 const StaffAccountsPage = () => {
-    const [staffList, setStaffList] = useState([]);
+    const [staffList, setStaffList] = useState<any[]>([]);
     
     const [showAddStaff, setShowAddStaff] = useState(false);
     const [showStaff, setShowStaff] = useState(false);
@@ -25,7 +25,7 @@ const StaffAccountsPage = () => {
     }, []);
 
     const getTiles = () => {
-        const showModal = (app) => {
+        const showModal = (app: SetStateAction<null>) => {
           setSelectedStaff(app);
           setShowStaff(true);
         }
@@ -36,7 +36,7 @@ const StaffAccountsPage = () => {
         </div>
       }
 
-    const exitNewStaffModal = (addedStaff) => {
+    const exitNewStaffModal = (addedStaff: any) => {
         setShowAddStaff(false);
 
         if (addedStaff) {

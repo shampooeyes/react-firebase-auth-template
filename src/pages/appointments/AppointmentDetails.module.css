@@ -13,7 +13,7 @@
 }
 .topBorderReq {
   border-radius: 26px 26px 0px 0px;
-  border-top: solid 85px #EA580C;
+  border-top: solid 85px #ffa000;
   position: inherit;
   left: -2%;
   top: -5%;
@@ -21,7 +21,7 @@
 }
 .topBorderUser {
   border-radius: 12px 12px 0px 0px;
-  border-top: solid 85px #EA580C;
+  border-top: solid 85px #ffa000;
   position: inherit;
   left: 0%;
   top: 0%;
@@ -30,7 +30,7 @@
 .adminTop{
   width: inherit;
   border-radius: 26px 26px 0px 0px;
-  border-top: solid 85px #EA580C;
+  border-top: solid 85px #ffa000;
   position: inherit;
   left: 0%;
   top: -26%;
@@ -187,6 +187,11 @@ margin-top: 5%;
     font-weight: 500;
     position: inherit;
     top: 30px;
+    width: 100%;
+    text-align: center;
   }
-  
+
+  .content {
+    margin-top: 20px;
+  }
   

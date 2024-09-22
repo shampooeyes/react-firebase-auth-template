@@ -1,4 +1,4 @@
-const StaffDetails = (props) => {
+const StaffDetails = (_props: any) => {
     return <>
     </>
 }
