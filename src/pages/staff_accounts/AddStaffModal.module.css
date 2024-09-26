@@ -32,8 +32,11 @@
     font-size: 26px;
     font-weight: 500;
     position: inherit;
-    top: 2%;
-    right: 40%;
+    top: 0px;
+    text-wrap: nowrap;
+    /* right: 100px; */
+    width: 100%;
+    text-align: center;
 }
 .smallText{
     color: #333;
@@ -90,5 +93,41 @@
 
   .addButton:hover {
     cursor: pointer;
+  }
+
+  .deleteButton {
+    position: absolute;
+    border: none;
+    bottom: -30px;
+    right: 50px;
+    border-radius: 11px;
+    background: #ffa000;
+    width: 150px;
+    height: 36px;
+    font-weight: bold;
+    color: #FFF;
+  }
+
+  .deleteButton:hover {
+    cursor: pointer;
+  }
+
+  @media (max-width:768px) {
+
+    .formControl {
+      width: 150px;
+    }
+    
+    .fieldGroup {
+      padding-left: 1rem;
+    }
+
+    .addButton {
+      right: 20px;
+    }
+
+    .deleteButton {
+      right: 180px;
+    }
   }
  

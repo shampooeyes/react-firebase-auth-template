@@ -15,6 +15,7 @@
     font-weight: 600;
     margin-bottom: 10px;
     text-align: start;
+    color: black;
 }
 
 .tableWrapper {
@@ -179,4 +180,56 @@
 .statusUnfilled {
     color: #F07167;
     background-color: #FFE9E2;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        margin-inline: 0px;
+        padding-inline: 10px;
+        margin-block: 20px;
+    }
+
+    .header {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .tableWrapper {
+        padding: 16px;
+        padding-bottom: 30px;
+    }
+
+    .tableOptions {
+        font-size: 13px;
+    }
+
+    .option, .optionEnabled {
+        margin-right: 10px;
+        margin-bottom: 0.5rem;
+    }
+
+    .filledButton, .unfilledButton {
+        padding-inline: 5px;
+        padding-block: 1.5px;
+        font-size: 12px;
+    }
+
+    .table {
+        margin-inline: 0;
+    }
+
+    .tableHeader {
+        font-size: 12.5px;
+        height: 35px;
+        padding-right: 10px;
+    }
+
+    .tableRow {
+        font-size: 12px;
+        padding-right: 10px;
+    }
+
+    .statusPill {
+        font-size: 8px;
+    }
 }

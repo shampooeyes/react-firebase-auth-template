@@ -75,8 +75,6 @@ margin-top: 5%;
 .fieldGroup {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px; /* Adjust the gap as needed */
-    margin-bottom: 2%;
   }
   .images{
     display: flex;
@@ -97,9 +95,7 @@ margin-top: 5%;
   }
   .nameField{
     flex:  1;
-    min-width: 240px;
-    max-width: 190px;
-    margin-top: 8%;
+    margin-top: 10px;
   }
   .form{
     position: absolute;
@@ -195,3 +191,105 @@ margin-top: 5%;
     margin-top: 20px;
   }
   
+  @media (max-width: 768px) {
+    .content {
+      margin-top: 30px;
+    }
+
+    .topBorderUser {
+      border-radius: 12px 12px 0px 0px;
+      border-top: solid 50px #ffa000;
+      position: inherit;
+    }
+
+    .addForm {
+      width: 100%;
+      height: auto;
+      margin-bottom: 10%;
+      padding: 20px;
+    }
+  
+    .topBorderReq, .topBorderUser, .adminTop {
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+  
+    .doctor {
+      font-size: 20px;
+      bottom: 5%;
+      right: 10%;
+    }
+
+    
+  
+    .headers {
+      font-size: 15px;
+      line-height: 26px;
+      margin-top: 20px;
+    }
+  
+    .title {
+      font-size: 12px;
+    }
+  
+    .smallText {
+      font-size: 13px;
+    }
+  
+    .fieldGroup {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 8px;
+    }
+  
+    .form {
+      position: static;
+      margin-left: 0;
+      width: 100%;
+      height: auto;
+    }
+  
+    .formControl {
+      width: 100%;
+      font-size: 12px;
+    }
+
+    .nameField{
+    }
+  
+    .accept, .reject {
+      width: 80px;
+      height: 32px;
+      left: 70%;
+      margin: 20px 10px;
+    }
+  
+    .buttonPos {
+      margin-left: 40%;
+    }
+  
+    .overlay {
+      display: none;
+    }
+  
+    .formContainer {
+      top: 50%;
+      left: 50%;
+      width: 90%;
+    }
+  
+    .userTitle {
+      font-size: 22px;
+      top: 10px;
+    }
+
+    .professional { 
+      padding-top: 0;
+    }
+
+    .personal {
+      padding-bottom: 0;
+    }
+  }

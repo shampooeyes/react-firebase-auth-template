@@ -7,7 +7,7 @@
   font-family: "Inter", sans-serif !important;
 }
 body {
-  background-color: hsl(240, 4%, 9%);
+  /* background-color: hsl(240, 4%, 9%); */
   color: white;
 }
 .main {
@@ -16,6 +16,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 10vh;
+  margin: 1rem;
 }
 a {
   text-decoration: none;
