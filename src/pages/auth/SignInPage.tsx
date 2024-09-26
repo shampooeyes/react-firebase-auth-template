@@ -62,7 +62,7 @@ const SignInPage = () => {
   return (
     <div className={styles.main}>
       <form className={styles.mainContainer} onSubmit={handleSubmit}>
-        <img src="/src/assets/logo.png" alt="Sign In" height="50px" />
+        <img src="/assets/logo.png" alt="Sign In" height="50px" />
         <h1 className={styles.headerText}>Sign In</h1>
         <input
           name="email"

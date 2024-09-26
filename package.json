@@ -5,6 +5,7 @@
   "type": "module",
   "author": "mmvergara",
   "license": "MIT",
+  "homepage": ".",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
