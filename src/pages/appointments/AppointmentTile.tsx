@@ -6,12 +6,10 @@ const AppointmentTile = (props: any) => {
 
 
     return <div className={classes.tableRow} style={props.style} onClick={() => props.onClick(order)}>
-        <div style={{ flex: 3 }}>{order.userId}</div>
+        <div style={{ flex: 2 }}>{order.username}</div>
         <div style={{ flex: 2 }}>{formatDateTime(order.startTime)}</div>
-        <div style={{ flex: 2 }}>{formatTime(order.endTime)}</div>
-        <div style={{ flex: 1 }}>{capitalize(order.location.city)}</div>
-        <div style={{ flex: 3 }}>{order.vanId}</div>
-        <div style={{ flex: 1 }}>{order.paymentMethod}</div>
+        <div style={{ flex: 2 }}>{capitalize(order.location.city)}</div>
+        <div style={{ flex: 2 }}>{order.vanId}</div>
         <div style={{ flex: 1 }}>{order.price.totalPrice} €</div>
         </div>
 }

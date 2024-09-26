@@ -10,6 +10,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
+import { FirebaseAuth } from '../../firebase';
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 // import MailIcon from '@mui/icons-material/Mail';
 
@@ -25,13 +26,25 @@ export default function PersistentDrawer(props: any) {
             text: "Staff Accounts",
             path: "/staff"
         },
+        // {
+        //     text: "Schedule",
+        //     path: "/schedule"
+        // },
         {
-            text: "Schedule",
-            path: "/schedule"
-        },
+          text: "Sign Out",
+          path: "/"
+      },
     ];
 
-    const drawerWidth = 200;
+    const drawerWidth = 150;
+
+    const goTo = (path:any) => {
+      props.onClose();
+      if (path === "/") {
+        FirebaseAuth.signOut();
+      }
+      navigate(path);
+    }
   
   
     return (
@@ -46,15 +59,15 @@ export default function PersistentDrawer(props: any) {
               boxSizing: 'border-box',
             },
           }}
-          variant="persistent"
           anchor="left"
           open={props.open}
+          onClose={props.onClose}
         >
           <Divider />
           <List>
             {items.map((item) => (
               <ListItem key={item.text} disablePadding>
-                <ListItemButton onClick={() => {navigate(item.path);}}>
+                <ListItemButton onClick={() => {goTo(item.path);}}>
                   <ListItemText primary={item.text} />
                 </ListItemButton>
               </ListItem>
