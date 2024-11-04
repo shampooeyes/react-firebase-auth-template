@@ -7,7 +7,7 @@ import AppointmentTile from "./AppointmentTile.tsx";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import Select from "react-select";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import AppointmentDetails from "./AppointmentDetails.tsx";
 
 const AppointmentsPage = () => {
@@ -89,6 +89,7 @@ const AppointmentsPage = () => {
       setSelectedAppointment(app);
       setShowAppointment(true);
     };
+
     return (
       <div style={{ height: "100%" }}>
         {filteredAppointments.map((order, index) => (
@@ -150,6 +151,129 @@ const AppointmentsPage = () => {
     }
   };
 
+  const cancelAppointment = (orderId: string) => {
+    exitAppointmentModal(null);
+    fetch("https://us-central1-steamit-c6c88.cloudfunctions.net/cancelOrder", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data: {orderKey: orderId} }),
+    })
+      .then((response) => response.json())
+      .then((_) => {
+        alert("Order cancelled successfully:");
+      })
+      .catch((error) => {
+        alert("Error cancelling order");
+        console.log(error);
+      });
+  };
+
+  const rescheduleAppointment = async (order: any, newDateTime: Date) => {
+    // post needs orderId, newDate, slotLength, oldDate, vanid, oldVanId, city
+    exitAppointmentModal(null);
+    if (!newDateTime) {
+      alert("No Time Selected");
+      return;
+    }
+
+    const orderId = order.id;
+    const userId = order.userId;
+    const newDate = new Date(newDateTime).getTime();
+    const oldVanId = order.vanId;
+    let vanId = ""; // new van id
+    const oldDate = formatToDateString(order.startTime); // old date string
+    const city = order.location.city;
+
+    let slotLength = order.endTime - order.startTime;
+    slotLength /= 60000;
+    const newDateString = formatToDateString(newDate);
+
+    const timeSlotData = {
+      date: newDateString,
+      city: city,
+      slotLength,
+    };
+
+    console.log(timeSlotData);
+
+    const result = await fetch(
+      "https://us-central1-steamit-c6c88.cloudfunctions.net/getTimeSlots",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: timeSlotData }),
+      }
+    );
+    if (result.ok) {
+      let response = await result.json();
+      response = response.result;
+      const slots = response.slots;
+      let slotIndex = -1;
+      for (let i = 0; i < slots.length; i++) {
+        const newDate = new Date(newDateTime);
+        const slotTime = new Date(slots[i].startTime);
+
+        if (
+          slotTime.getFullYear() == newDate.getFullYear() &&
+          slotTime.getMonth() == newDate.getMonth() &&
+          slotTime.getDate() == newDate.getDate() &&
+          slotTime.getHours() == newDate.getHours() &&
+          slotTime.getMinutes() == newDate.getMinutes()
+        ) {
+          slotIndex = i;
+          break;
+        }
+      }
+
+      if (slotIndex == -1) {
+        alert("Selected time slot is not available");
+        return;
+      }
+      if (response.multiVan) {
+        vanId = response.vanIndices[slotIndex];
+      } else {
+        vanId = response.vanIndices[0];
+      }
+      console.log(slots[slotIndex]);
+    } else {
+      alert("Error occured");
+    }
+
+    const data = {
+      orderId,
+      userId,
+      newDate,
+      oldVanId,
+      vanId,
+      oldDate,
+      city,
+      slotLength,
+    };
+    
+    fetch(
+      "https://us-central1-steamit-c6c88.cloudfunctions.net/rescheduleOrder",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({data}),
+      }
+    )
+      .then((response) => response.json())
+      .then((_) => {
+        alert("Order rescheduled successfully:");
+      })
+      .catch((error) => {
+        alert("Error rescheduling order");
+        console.log(error);
+      });
+  };
+
   const exitAppointmentModal = async (staff: any) => {
     setShowAppointment(false);
     if (!staff) {
@@ -191,101 +315,109 @@ const AppointmentsPage = () => {
   const [isDrawerOpen, setOpenDrawer] = useState(false);
   const openDrawer = () => {
     setOpenDrawer(true);
-  }
+  };
 
   const closeDrawer = () => {
     setOpenDrawer(false);
-  }
+  };
   return (
     <div style={{ backgroundColor: "white" }}>
       {showAppointment && (
         <AppointmentDetails
           data={selectedAppointment}
+          onCancel={cancelAppointment}
+          onReschedule={rescheduleAppointment}
           exit={exitAppointmentModal}
         />
       )}
-      <PersistentDrawer open={isDrawerOpen} onClose={closeDrawer} className='bla bla bla'>
-      <div className={classes.wrapper}>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          
-            <MenuIcon onClick={openDrawer} style={{fill: "black", marginRight: "20px"}}/>
-          <div>
-            <div className={classes.header}>Appointments</div>
-            {/* <div className={classes.tableWrapper}> */}
-            <div className={classes.tableOptions}>
-              <div
-                className={
-                  filterIndex == 0 ? classes.optionEnabled : classes.option
-                }
-                onClick={() => handleFilterChange(0)}
-              >
-                All Appointments
-              </div>
-              <div
-                className={`${
-                  filterIndex == 1 ? classes.optionEnabled : classes.option
-                } position-relative`}
-                onClick={() => handleFilterChange(1)}
-              >
-                {pickedCity}
-                <Select
-                  options={cities.map((city) => {
-                    return { label: city };
-                  })}
-                  styles={customStyles}
-                  menuIsOpen={showCitiesMenu}
-                  onChange={(option) => handlePickCity(option)}
-                />
-              </div>
-              <div
-                className={`${
-                  filterIndex == 3 ? classes.optionEnabled : classes.option
-                } position-relative`}
-                onClick={() => handleFilterChange(3)}
-              >
-                {pickedStaff}
-                <Select
-                  options={staff.map((id) => {
-                    return { label: id };
-                  })}
-                  styles={customStyles}
-                  menuIsOpen={showStaffMenu}
-                  onChange={(option) => handlePickStaff(option)}
-                />
-              </div>
-              <div
-                className={`${
-                  filterIndex == 2 ? classes.optionEnabled : classes.option
-                } position-relative`}
-              >
-                <div onClick={() => handleFilterChange(2)}>
-                  {pickedDate == null ? "Date" : formatDate(pickedDate)}
+      <PersistentDrawer
+        open={isDrawerOpen}
+        onClose={closeDrawer}
+        className="bla bla bla"
+      >
+        <div className={classes.wrapper}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <MenuIcon
+              onClick={openDrawer}
+              style={{ fill: "black", marginRight: "20px" }}
+            />
+            <div>
+              <div className={classes.header}>Appointments</div>
+              {/* <div className={classes.tableWrapper}> */}
+              <div className={classes.tableOptions}>
+                <div
+                  className={
+                    filterIndex == 0 ? classes.optionEnabled : classes.option
+                  }
+                  onClick={() => handleFilterChange(0)}
+                >
+                  All Appointments
                 </div>
-                {showCalendar && (
-                  <div className={classes.calendarContainer}>
-                    <Calendar
-                      className={classes.calendar}
-                      value={pickedDate}
-                      onChange={(value) => handlePickDate(value)}
-                    />
+                <div
+                  className={`${
+                    filterIndex == 1 ? classes.optionEnabled : classes.option
+                  } position-relative`}
+                  onClick={() => handleFilterChange(1)}
+                >
+                  {pickedCity}
+                  <Select
+                    options={cities.map((city) => {
+                      return { label: city };
+                    })}
+                    styles={customStyles}
+                    menuIsOpen={showCitiesMenu}
+                    onChange={(option) => handlePickCity(option)}
+                  />
+                </div>
+                <div
+                  className={`${
+                    filterIndex == 3 ? classes.optionEnabled : classes.option
+                  } position-relative`}
+                  onClick={() => handleFilterChange(3)}
+                >
+                  {pickedStaff}
+                  <Select
+                    options={staff.map((id) => {
+                      return { label: id };
+                    })}
+                    styles={customStyles}
+                    menuIsOpen={showStaffMenu}
+                    onChange={(option) => handlePickStaff(option)}
+                  />
+                </div>
+                <div
+                  className={`${
+                    filterIndex == 2 ? classes.optionEnabled : classes.option
+                  } position-relative`}
+                >
+                  <div onClick={() => handleFilterChange(2)}>
+                    {pickedDate == null ? "Date" : formatDate(pickedDate)}
                   </div>
-                )}
+                  {showCalendar && (
+                    <div className={classes.calendarContainer}>
+                      <Calendar
+                        className={classes.calendar}
+                        value={pickedDate}
+                        onChange={(value) => handlePickDate(value)}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={classes.table}>
-          <div className={classes.tableHeader}>
-            <div style={{ flex: 2 }}>Username</div>
-            <div style={{ flex: 2 }}>Date</div>
-            <div style={{ flex: 2 }}>City</div>
-            <div style={{ flex: 2 }}>Staff</div>
-            <div style={{ flex: 1 }}>Total</div>
+          <div className={classes.table}>
+            <div className={classes.tableHeader}>
+              <div style={{ flex: 2 }}>Username</div>
+              <div style={{ flex: 2 }}>Date</div>
+              <div style={{ flex: 2 }}>City</div>
+              <div style={{ flex: 2 }}>Staff</div>
+              <div style={{ flex: 1 }}>Total</div>
+            </div>
+            {getTiles()}
           </div>
-          {getTiles()}
+          {/* </div> */}
         </div>
-        {/* </div> */}
-      </div>
       </PersistentDrawer>
     </div>
   );
@@ -299,6 +431,17 @@ const formatDate = (date: any) => {
     day: "2-digit",
     year: "numeric",
   }).format(date);
+  return formattedDate;
+};
+
+const formatToDateString = (date: any) => {
+  const formattedDate = new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  })
+    .format(date)
+    .replace(/\//g, "-");
   return formattedDate;
 };
 

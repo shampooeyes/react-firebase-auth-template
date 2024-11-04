@@ -15,13 +15,6 @@ const AppointmentTile = (props: any) => {
 }
 export default AppointmentTile;
 
-const formatTime = (date: any) => {
-    const formattedDate = new Intl.DateTimeFormat('en-US', {
-        minute: "numeric",
-        hour: "2-digit",
-    }).format(date);
-    return formattedDate;
-}
 
 const formatDateTime = (date: any) => {
     const formattedDate = new Intl.DateTimeFormat('en-US', {

@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import Modal from "../shared/Modal";
 import styles from "./AddStaffModal.module.css";
-import { deleteUser } from "firebase/auth";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
-import { FirebaseAuth, FirebaseFirestore } from "../../firebase";
+import {  FirebaseFirestore } from "../../firebase";
 
 const AddStaffModal = (props: {
   email: any;
@@ -14,7 +13,6 @@ const AddStaffModal = (props: {
 }) => {
   const [staffId, setStaffId] = useState(props.vanId);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(props.id);
 
   const onStaffIdChange = (event: {
     target: { value: React.SetStateAction<string> };

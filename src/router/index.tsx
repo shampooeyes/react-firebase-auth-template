@@ -6,6 +6,10 @@ import StaffAccountsPage from "../pages/staff_accounts/StaffAccountsPage.tsx";
 import NotFoundPage from "../pages/404Page.tsx";
 import AuthProtectedRoute from "./AuthProtectedRoute.tsx";
 import Providers from "../Providers.tsx";
+import UserAccountsPage from "../pages/user_accounts/UserAccountsPage.tsx";
+import UserDetailsPage from "../pages/user_accounts/UserDetailsPage.tsx";
+import MembershipOrdersPage from "../pages/membership_orders/MembershipOrdersPage.tsx";
+
 
 const router = createBrowserRouter([
   // I recommend you reflect the routes here in the pages folder
@@ -35,6 +39,19 @@ const router = createBrowserRouter([
             path: "/staff",
             element: <StaffAccountsPage />,
           },
+          {
+            path: "/users",
+            element: <UserAccountsPage />,
+          },
+          {
+            path: "/userdetails",
+            element: <UserDetailsPage/>,
+          },
+          {
+            path: "/membershipOrders",
+            element: <MembershipOrdersPage/>,
+          },
+            
         ],
       },
     ],
@@ -44,5 +61,6 @@ const router = createBrowserRouter([
     element: <NotFoundPage />,
   },
 ]);
+
 
 export default router;

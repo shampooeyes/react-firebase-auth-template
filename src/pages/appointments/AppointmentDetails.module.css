@@ -175,9 +175,10 @@ margin-top: 5%;
     z-index: 1000; /* Make sure this is higher than the overlay z-index */
     scroll-behavior: smooth;
   }
+
   .userTitle{
     color: var(--white-100, #ffffff);
-    padding-left: 2rem;
+    /* padding-left: 2rem; */
     font-family: 'Poppins';
     font-size: 26px;
     font-weight: 500;
@@ -291,5 +292,91 @@ margin-top: 5%;
 
     .personal {
       padding-bottom: 0;
+    }
+  }
+
+  .buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .cancelButton {
+    background-color: #f07167;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .cancelButton:hover {
+    background-color: #d65a50;
+  }
+  
+  .rescheduleContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .datetimeField {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  
+  .rescheduleButton {
+    background-color: #00afb9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .rescheduleButton:hover {
+    background-color: #009aa3;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .buttonsContainer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .cancelButton,
+    .rescheduleButton {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    .rescheduleContainer {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .datetimeField {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cancelButton,
+    .rescheduleButton {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  
+    .datetimeField {
+      font-size: 14px;
+      padding: 8px;
     }
   }

@@ -7,7 +7,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const AppointmentDetails = (props: any) => {
   const order = props.data;
-  console.log(props);
   const [showStaffMenu, setShowStaffMenu] = useState(false);
   const [pickedStaff, setPickedStaff] = useState(order.vanId);
 
@@ -20,6 +19,12 @@ const AppointmentDetails = (props: any) => {
       setPickedStaff(option["label"]);
     }
     setShowStaffMenu(false);
+  };
+
+  const [rescheduleDate, setRescheduleDate] = useState<string>("");
+
+  const handleRescheduleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRescheduleDate(event.target.value);
   };
 
   const getBody = () => {
@@ -153,14 +158,15 @@ const AppointmentDetails = (props: any) => {
                   {order.price.totalPrice}
                 </div>
               </div>
-              {order.price.promotionDiscount > 0 && (
+                {order.price.promotionDiscount > 0 && (
                 <div>
                   <span className={styles.smallText}>Promotion Discount</span>
                   <div className={styles.formControl}>
-                    {order.price.promotionDiscount}
+                  {order.price.promotionDiscount}
                   </div>
                 </div>
-              )}
+                )}
+                <div className={styles.buttonsContainer}></div>
               {order.price.membershipDiscount > 0 && (
                 <div>
                   <span className={styles.smallText}>Membership Discount</span>
@@ -169,6 +175,13 @@ const AppointmentDetails = (props: any) => {
                   </div>
                 </div>
               )}
+            </div>
+            <div className={styles.buttonsContainer}>
+              <button className={styles.cancelButton} onClick={() => props.onCancel(order.id)}>Cancel</button>
+              <div className={styles.rescheduleContainer}>
+                <input type="datetime-local" value={rescheduleDate} onChange={handleRescheduleDateChange} className={styles.datetimeField} />
+                <button className={styles.rescheduleButton} onClick={() => props.onReschedule(order, rescheduleDate)}>Reschedule</button>
+              </div>
             </div>
           </div>
         </div>

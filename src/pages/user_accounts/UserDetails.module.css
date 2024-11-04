@@ -1,0 +1,41 @@
+.memberships {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 1em;
+}
+
+.memberships h3 {
+    margin-bottom: 0.8em;
+    color: #333;
+}
+
+.membershipCardWrapper {
+    display: flex;
+}
+
+.membershipCard {
+    padding: 0.5em;
+    margin-inline: 1em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.membershipName {
+    font-size: 1em;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.membershipDetails {
+    font-size: 0.7em;
+    color: #777;
+}
+
+.membershipDetails div {
+    margin-bottom: 5px;
+}
